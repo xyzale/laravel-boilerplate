@@ -1,0 +1,38 @@
+version: '3.4'
+services:
+  mysql:
+    image: mysql:5.7.29
+    platform: linux/x86_64
+    container_name: mysql
+    volumes:
+      - ./mysql:/mysql
+    command: --init-file /mysql/db-init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+    restart: always
+    ports:
+      - 3306:3306
+  laravelweb:
+    build:
+      context: ./laravel
+    container_name: laravelweb
+    volumes:
+      - ./laravel:/var/www/laravel
+    environment:
+      DB_HOST: laraveldb
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+    restart: always
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./laravel:/var/www/laravel
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - "laravelweb"
+    restart: always
