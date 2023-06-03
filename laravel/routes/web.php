@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/chatgpt-prompt', [\App\Http\Controllers\ChatGptPrompt::class, 'index']);
+Route::post('/genera-prompt', [\App\Http\Controllers\ChatGptPrompt::class, 'generaPrompt']);

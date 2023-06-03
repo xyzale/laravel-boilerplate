@@ -8,8 +8,9 @@
 <body>
 
 <div>
-    <h2>Definisci le caratteristiche dell&#39;articolo desiderato</h2>
-    <form target="_blank">
+    <div class="container">
+        <h2>Definisci le caratteristiche dell&#39;articolo desiderato</h2>
+        <form action="/genera-prompt" method="post" target="_blank">
         <fieldset>
             <div class="m_sfondo-azzurrino">
                 <legend>Scelta degli elementi del prompt per ChatGPT:</legend>
@@ -200,37 +201,55 @@
                     <option value="spiritoso">Spiritoso</option>
                     <option value="tecnico">Tecnico</option>
                 </select><br><br>
-                <input type="checkbox" id="m_puntato" name="puntato"> Includi elenco
-                puntato<br><br>
-                <input type="checkbox" id="m_numerato" name="numerato"> Includi
-                elenco numerato<br><br>
-                <input type="checkbox" id="m_fonti" name="fonti"> Includi le
-                fonti<br><br> <input type="checkbox" id="m_meta" name="meta"> Scrivi meta
-                title/description<br><br>
-                <input type="checkbox" id="m_ottimizza" name="ottimizza"> Ottimizza per
-                keyword
-                principale<br><br>
-                <div id="m_opzioni-ottimizzazione" style="display:none"><label for="m_variabile_keyword">Parola chiave:</label>
-                    <input type="text" id="m_variabile_keyword" name="variabile_keyword"><br><br> <input type="checkbox"
-                                                                                                         id="m_keyword-correlate"
-                                                                                                         name="keyword-correlate">
-                    Includi keyword correlate<br><br> <input type="checkbox" id="m_entita-correlate"
-                                                             name="entita-correlate">
-                    Includi entità correlate<br><br></div>
-                <input type="checkbox" id="m_informazioni" name="informazioni"> Inserisci informazioni extra<br><br>
-                <div id="m_opzioni-informazioni" style="display:none"><label
-                        for="m_testo-informazioni"></label>
+                <input type="checkbox" id="m_puntato" name="puntato"> Includi elenco puntato<br><br>
+                <input type="checkbox" id="m_numerato" name="numerato"> Includi elenco numerato<br><br>
+                <input type="checkbox" id="m_fonti" name="fonti"> Includi le fonti<br><br>
+                <input type="checkbox" id="m_meta" name="meta"> Scrivi meta title/description<br><br>
+                <input type="checkbox" id="m_ottimizza" name="ottimizza" onclick="mostraOpzioni()"> Ottimizza per keyword principale<br><br>
+                <div id="m_opzioni-ottimizzazione" style="display:none">
+                    <label for="m_variabile_keyword">Parola chiave:</label>
+                    <input type="text" id="m_variabile_keyword" name="variabile_keyword"><br><br>
+                    <input type="checkbox" id="m_keyword-correlate" name="keyword_correlate">Includi keyword correlate<br><br>
+                    <input type="checkbox" id="m_entita-correlate" name="entita_correlate"> Includi entità correlate<br><br>
+                </div>
+                <input type="checkbox" id="m_informazioni" name="informazioni" onclick="mostraExtraInfo()"> Inserisci informazioni extra<br><br>
+                <div id="m_opzioni-informazioni" style="display:none">
+                    <label for="m_testo-informazioni"></label>
                     <textarea id="m_testo-informazioni" name="testo-informazioni" rows="3" cols="40"></textarea>
                 </div>
                 <input type="checkbox" id="m_html" name="html"> Output in HTML<br><br>
             </div>
-            <button type="button">Genera Prompt</button>
-            <button type="button">Reset</button>
-            <button type="button">Copia Prompt</button>
+            {{ csrf_field() }}
+            <button type="submit">Genera Prompt</button>
+            <button type="reset">Reset</button>
+{{--            <button type="button">Copia Prompt</button>--}}
         </fieldset>
     </form>
+    </div>
     <br><br>
     <textarea id="m_output" name="output" rows="14" style="width:100%"></textarea>
+
+    <script type="application/javascript">
+        const mostraOpzioni = () => {
+            const mostra = document.getElementById('m_ottimizza').checked;
+
+            if (mostra) {
+                document.getElementById('m_opzioni-ottimizzazione').style.display = 'block';
+            } else {
+                document.getElementById('m_opzioni-ottimizzazione').style.display = 'none';
+            }
+        }
+
+        const mostraExtraInfo = () => {
+            const mostra = document.getElementById('m_informazioni').checked;
+
+            if (mostra) {
+                document.getElementById('m_opzioni-informazioni').style.display = 'block';
+            } else {
+                document.getElementById('m_opzioni-informazioni').style.display = 'none';
+            }
+        }
+    </script>
 
 </div>
 
