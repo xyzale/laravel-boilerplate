@@ -90,7 +90,6 @@ class ChatGptPrompt extends Controller
             }
         }
 
-        dd($prompt);
-        dd($request->all());
+        return view('generated-prompt', ['prompt' => $prompt]);
     }
 }
