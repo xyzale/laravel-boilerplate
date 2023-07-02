@@ -16,10 +16,11 @@ class UsersController extends Controller
             $u->email = $request->get('email');
             $u->password = bcrypt($request->get('password'));
             $u->save();
+            $token = $u->createToken('myapp');
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
-        return response()->json($u);
+        return response()->json(['user' => $u, 'token' => $token->plainTextToken]);
     }
 }
