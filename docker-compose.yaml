@@ -26,6 +26,7 @@ services:
       DB_PASSWORD: secret
     restart: always
   nginx:
+    # image from docker hub
     image: nginx:latest
     container_name: nginx
     volumes:

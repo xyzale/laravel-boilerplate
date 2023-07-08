@@ -2,12 +2,10 @@ FROM php:8.1-fpm
 
 WORKDIR /var/www/laravel
 
-RUN mkdir /var/www/laravel -p
+# copy from current folder into /var/www/laravel
+COPY ./ ./
 
-COPY ./ /var/www/laravel
-
-WORKDIR /var/www/laravel
-
+# Install Laravel required libraries
 RUN apt-get update
 RUN apt-get install zip wget git zlib1g-dev -y
 RUN docker-php-ext-install pdo_mysql
