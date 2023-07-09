@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\OrderConfirmed;
+use App\Events\OrderCreated;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
@@ -22,7 +21,7 @@ class OrdersController extends Controller
         $order->product_id = $request->get('product_id');
         $order->save();
 
-        Mail::to($order->user)->send(new OrderConfirmed($order));
+        OrderCreated::dispatch($order);
 
         return response()->json(['order' => $order->load(['product'])->toArray()]);
     }
