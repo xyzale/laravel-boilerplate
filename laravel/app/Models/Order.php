@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $user_id
  * @property int $product_id
+ * @property User $user
+ * @property Product $product
  */
 class Order extends Model
 {
