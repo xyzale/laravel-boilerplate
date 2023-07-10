@@ -5,9 +5,17 @@ namespace App\Listeners;
 use App\Events\OrderCreated;
 use App\Mail\OrderConfirmed;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailPurchaseConfirmation
+class EmailPurchaseConfirmation implements ShouldQueue
 {
+    /**
+     * @var string Define specific queue name
+     *
+     * php artisan queue:work --queue=emails --tries=5 --backoff=5
+     */
+    public string $queue = 'emails';
+
     /**
      * Create the event listener.
      */
