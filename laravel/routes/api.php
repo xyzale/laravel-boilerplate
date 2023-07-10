@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("/users", [\App\Http\Controllers\UsersController::class, 'create']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post("/orders", [\App\Http\Controllers\OrdersController::class, 'createOrder']);
+});
