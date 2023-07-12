@@ -12,9 +12,13 @@ class OrderService
     {
     }
 
-    public function createOrder(int $productId, int $userId): Order
+    public function createOrder(int $productId, int $userId): ?Order
     {
-        $order = $this->repository->createOrder($productId, $userId);
+        try {
+            $order = $this->repository->createOrder($productId, $userId);
+        } catch (\Exception) {
+            return null;
+        }
 
         OrderCreated::dispatch($order);
 
