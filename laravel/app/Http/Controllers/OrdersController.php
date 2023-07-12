@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Events\OrderCreated;
 use App\Models\Order;
+use App\Service\OrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+    public function __construct(private readonly OrderService $service)
+    {
+    }
+
     public function createOrder(Request $request): JsonResponse
     {
         $request->validate([
@@ -16,12 +21,7 @@ class OrdersController extends Controller
             'product_id' => 'required|int',
         ]);
 
-        $order = new Order();
-        $order->user_id = $request->get('user_id');
-        $order->product_id = $request->get('product_id');
-        $order->save();
-
-        OrderCreated::dispatch($order);
+        $order = $this->service->createOrder($request->get('product_id'), $request->get('user_id'));
 
         return response()->json(['order' => $order->load(['product'])->toArray()]);
     }
