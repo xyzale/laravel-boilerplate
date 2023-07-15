@@ -14,3 +14,6 @@ RUN docker-php-ext-install pdo_mysql
 RUN wget https://getcomposer.org/composer.phar -O ./composer
 RUN chmod +x composer && mv composer /usr/local/bin/composer
 RUN composer install
+
+# Node
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && apt-get install -y nodejs
