@@ -16,6 +16,10 @@ class OrdersController extends Controller
     {
         $order = $this->service->createOrder($request->get('product_id'), $request->get('user_id'));
 
+        if (is_null($order)) {
+            return response()->json([], 404);
+        }
+
         return response()->json(['order' => $order->load(['product'])->toArray()]);
     }
 }

@@ -16,7 +16,7 @@ class OrderService
     {
         try {
             $order = $this->repository->createOrder($productId, $userId);
-        } catch (\Exception) {
+        } catch (\Exception $e) {
             return null;
         }
 

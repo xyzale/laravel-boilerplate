@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'webhook' => [
+        'url' => env('DISPATCHER_DESTINATION', 'http://default')
+    ]
+
 ];
