@@ -1,6 +1,6 @@
 ### Build prod
 
-docker build . --target production -t 857710677358.dkr.ecr.eu-central-1.amazonaws.com/laravel-boilerplate:069a654
+docker build . --target production -t 857710677358.dkr.ecr.eu-central-1.amazonaws.com/laravel-boilerplate:latest
 
 
 ### Docker login

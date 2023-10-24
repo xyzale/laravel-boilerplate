@@ -26,5 +26,6 @@
             ECR_REPOSITORY: laravel-boilerplate
             IMAGE_TAG: latest
           run: |
-            docker build --target production -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./laravel
+            ls laravel
+            docker build --target production -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./laravel/laravel
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
