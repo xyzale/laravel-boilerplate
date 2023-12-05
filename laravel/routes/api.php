@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/accounts', [\App\Http\Controllers\AccountController::class, 'createAccount']);
+Route::post('/deposit', [\App\Http\Controllers\AccountController::class, 'deposit']);
+Route::post('/withdraw', [\App\Http\Controllers\AccountController::class, 'withdraw']);
