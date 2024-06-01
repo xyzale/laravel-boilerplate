@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable
+class UserRegisteredEmail extends Mailable
 {
     use Queueable, SerializesModels;
 

@@ -2,10 +2,9 @@
 
 namespace App\Service;
 
-use App\Mail\UserRegistered;
+use App\Events\UserCreated;
 use App\Models\User;
 use App\Repository\UserRepository;
-use Illuminate\Support\Facades\Mail;
 
 class UserService
 {
@@ -17,7 +16,7 @@ class UserService
     {
         $user = $this->repository->create($email, $password, $name);
 
-        Mail::to($user)->send(new UserRegistered($user));
+        UserCreated::dispatch($user);
 
         return $user;
     }
