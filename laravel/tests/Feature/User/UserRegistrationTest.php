@@ -22,5 +22,21 @@ class UserRegistrationTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $this->assertEquals('test@test.com', $response->json('email'));
+    }
+
+    function testUserRegistrationFailed()
+    {
+        $response = $this->post('/api/users', [
+            'email' => 'testtest.com',
+            'password' => '12346578',
+            'name' => 'Mario',
+        ]);
+
+        $response->assertStatus(422);
+        $this->assertEquals(
+            'The email field must be a valid email address.',
+            $response->json('message')
+        );
     }
 }

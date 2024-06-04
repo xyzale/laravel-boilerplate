@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Events\UserCreated;
 use App\Models\User;
 use App\Repository\UserRepository;
+use App\Service\Exceptions\DuplicateEmailException;
 
 class UserService
 {
@@ -14,7 +15,11 @@ class UserService
 
     public function register(string $email, string $password, string $name): User
     {
-        $user = $this->repository->create($email, $password, $name);
+        try {
+            $user = $this->repository->create($email, $password, $name);
+        } catch (\Exception $e) {
+            throw new DuplicateEmailException();
+        }
 
         UserCreated::dispatch($user);
 
